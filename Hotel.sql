@@ -1,4 +1,4 @@
-create table REGIMENES
+create or replace table REGIMENES
 (
     CODIGO  varcahr2(2),
     NOMBRE  varcahr2(50),
@@ -7,7 +7,7 @@ create table REGIMENES
     constraint UNICO_NOMB_REG unique (NOMBRE)
 );
 
-create table PERSONAS
+create or replace table PERSONAS
 (
     NIF         varchar2(9),
     NOMBRE      varchar2(50) constraint NULL_NOMBRE_PERS NOT NULL,
@@ -20,7 +20,7 @@ create table PERSONAS
 	constraint UNICO_DIRECCION_PERS unique (DIRECCION)
 );
 
-create table TEMPORADAS
+create or replace table TEMPORADAS
 (
     CODIGO  varchar2(1),
     NOMBRE  varchar2(50),
@@ -28,7 +28,7 @@ create table TEMPORADAS
     constraint UNICO_NOMBRE_TEMP unique (NOMBRE)
 );
 
-create table TIPOS_HABITACIONES
+create or replace table TIPOS_HABITACIONES
 (
     CODIGO  varchar2(1),
     NOMBRE  varchar2(50),
@@ -36,7 +36,7 @@ create table TIPOS_HABITACIONES
     constraint UNICO_NOMB_THAB unique (NOMBRE)
 );
 
-create table HABITACIONES
+create or replace table HABITACIONES
 (
     NUMERO      varchar2(2),
     COD_TIPO    varchar2(1),
@@ -44,7 +44,7 @@ create table HABITACIONES
     constraint FK_TIPO_HAB foreign key (COD_TIPO) references TIPOS_HABITACIONES (CODIGO)
 );
 
-create table TARIFAS
+create or replace table TARIFAS
 (
     CODIGO          varchar2(2),
     COD_TIPO_HAB    varchar2(1),
@@ -57,7 +57,7 @@ create table TARIFAS
     constraint FK_COD_REG_TAR foreign key (COD_REG) references REGIMENES (CODIGO)
 );
 
-create table ACTIVIDADES
+create or replace table ACTIVIDADES
 (
     CODIGO              varchar2(7),
     NOMBRE              varchar2(40),
@@ -71,7 +71,7 @@ create table ACTIVIDADES
     constraint UNICO_NOMB_ACT unique (NOMBRE)
 );
 
-create table ESTANCIAS
+create or replace table ESTANCIAS
 (
     CODIGO          varchar2(5),
     FECHA_INICIO    date,
@@ -88,7 +88,7 @@ create table ESTANCIAS
     constraint FORMAT_FECHA_INICIO_EST check (to_char(FECHA_INICIO, 'HH24:MI') < '21:00')
 );
 
-create table GASTOS_EXTRAS
+create or replace table GASTOS_EXTRAS
 (
     COD_GASTOS      varchar2(5),
     COD_ESTANCIA    varchar2(2),
@@ -99,7 +99,7 @@ create table GASTOS_EXTRAS
     constraint FK_COD_ESTANCIA_GASTOS_EXT foreign key (COD_ESTANCIA) references ESTANCIAS (CODIGO)           
 );
 
-create table ACTIVIDADES_REALIZADAS
+create or replace table ACTIVIDADES_REALIZADAS
 (
     COD_ESTANCIA    varchar2(2),
     COD_ACTIVIDAD   varchar2(7),
@@ -113,7 +113,7 @@ create table ACTIVIDADES_REALIZADAS
     constraint FORMAT2_FECHA_ACT_REALIZADAS check (to_char(FECHA, 'HH24:MI') not between '00:00' and '05:59')
 );
 
-create table FACTURAS
+create or replace table FACTURAS
 (
     NUMERO          varchar2(5),
     COD_ESTANCIA    varchar2(2),
